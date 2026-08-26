@@ -29,7 +29,7 @@ It automates ingestion of CSV files, applies conditional logic, and integrates w
 
 ### 5. Professional Project Documentation
 - Exporting pipeline and activity definitions as **JSON files** for reproducibility.  
-- Structuring a GitHub repo with clear folders (`activities/`, `datasets/`, `linkedServices/`, `docs/`).  
+- Structuring a GitHub repo with clear folders (`pipelines/`, `activities/`, `imgs/`, `docs/`).  
 - Writing READMEs that explain **architecture, lessons learned, and usage instructions**.  
 
 ---
