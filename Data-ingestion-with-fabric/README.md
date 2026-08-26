@@ -6,7 +6,7 @@ This repository contains hands‑on projects that demonstrate my skills in **Pyt
 ---
 
 ## 📂 Project Structure
-- `fabric-pipelines/` → Metadata‑driven pipelines (JSON definitions, activity configs, diagrams)
+- `Pipelines/` → Metadata‑driven pipelines (JSON definitions, activity configs, diagrams)
 - `docs/` → Architecture notes, lessons learned, and project explanations
 - `images/` → Pipeline diagrams and screenshots
 
