@@ -1,0 +1,134 @@
+{
+    "name": "dataIngestion",
+    "objectId": "6e71e22d-b403-46d8-880d-c06566552876",
+    "properties": {
+        "activities": [
+            {
+                "name": "ForEachFile",
+                "type": "ForEach",
+                "dependsOn": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@pipeline().parameters.p_files",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Copy data1",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "typeProperties": {
+                                "source": {
+                                    "type": "DelimitedTextSource",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSReadSettings",
+                                        "recursive": true,
+                                        "enablePartitionDiscovery": false
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextReadSettings"
+                                    },
+                                    "datasetSettings": {
+                                        "annotations": [],
+                                        "type": "DelimitedText",
+                                        "typeProperties": {
+                                            "location": {
+                                                "type": "AzureBlobFSLocation",
+                                                "fileName": {
+                                                    "value": "@item()",
+                                                    "type": "Expression"
+                                                },
+                                                "folderPath": "rawfiles",
+                                                "fileSystem": "sourcecsv"
+                                            },
+                                            "columnDelimiter": ",",
+                                            "escapeChar": "\\",
+                                            "firstRowAsHeader": true,
+                                            "quoteChar": "\""
+                                        },
+                                        "schema": [],
+                                        "externalReferences": {
+                                            "connection": "8dc8a91b-a106-4360-a5f0-d4d803aae6ad"
+                                        }
+                                    }
+                                },
+                                "sink": {
+                                    "type": "DelimitedTextSink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobStorageWriteSettings"
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextWriteSettings",
+                                        "fileExtension": ".txt"
+                                    },
+                                    "datasetSettings": {
+                                        "annotations": [],
+                                        "linkedService": {
+                                            "name": "bronze_lakehouse",
+                                            "properties": {
+                                                "annotations": [],
+                                                "type": "Lakehouse",
+                                                "typeProperties": {
+                                                    "workspaceId": "8f061d9d-c600-4549-aa75-fcee5fb9c73c",
+                                                    "artifactId": "7601ffba-8955-4a70-925e-cbf04c1d3779",
+                                                    "rootFolder": "Files"
+                                                }
+                                            }
+                                        },
+                                        "type": "DelimitedText",
+                                        "typeProperties": {
+                                            "location": {
+                                                "type": "LakehouseLocation",
+                                                "fileName": {
+                                                    "value": "@item()",
+                                                    "type": "Expression"
+                                                },
+                                                "folderPath": "AzureDataIngestion"
+                                            },
+                                            "columnDelimiter": ",",
+                                            "escapeChar": "\\",
+                                            "firstRowAsHeader": true,
+                                            "quoteChar": "\""
+                                        },
+                                        "schema": []
+                                    }
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "p_files": {
+                "type": "array",
+                "defaultValue": [
+                    "olist_customers_dataset.csv",
+                    "olist_order_items_dataset.csv",
+                    "olist_order_payments_dataset.csv",
+                    "olist_order_reviews_dataset.csv",
+                    "olist_orders_dataset.csv",
+                    "olist_products_dataset.csv"
+                ]
+            }
+        },
+        "lastModifiedByObjectId": "ae4319f4-779d-4604-a09a-5257477a610f",
+        "lastPublishTime": "2026-08-26T08:17:51Z"
+    }
+}
