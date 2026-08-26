@@ -1,0 +1,226 @@
+{
+    "name": "metadataDriven",
+    "objectId": "ac97a264-5a37-44a4-9458-e1fe139efc8d",
+    "properties": {
+        "activities": [
+            {
+                "name": "Get Metadata1",
+                "type": "GetMetadata",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "fieldList": [
+                        "childItems"
+                    ],
+                    "datasetSettings": {
+                        "annotations": [],
+                        "type": "Parquet",
+                        "typeProperties": {
+                            "location": {
+                                "type": "AzureBlobFSLocation",
+                                "folderPath": "rawfiles",
+                                "fileSystem": "sourcecsv"
+                            },
+                            "compressionCodec": "snappy"
+                        },
+                        "schema": [],
+                        "externalReferences": {
+                            "connection": "84d7c9e5-88b5-4a0b-b96e-bd130f034dc4"
+                        }
+                    },
+                    "storeSettings": {
+                        "type": "AzureBlobFSReadSettings",
+                        "recursive": true,
+                        "enablePartitionDiscovery": false
+                    },
+                    "formatSettings": {
+                        "type": "ParquetReadSettings"
+                    }
+                }
+            },
+            {
+                "name": "FilterCSV",
+                "type": "Filter",
+                "dependsOn": [
+                    {
+                        "activity": "Get Metadata1",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('Get Metadata1').output.childItems",
+                        "type": "Expression"
+                    },
+                    "condition": {
+                        "value": "@contains(item().name, 'csv' )",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "ForEach1",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "FilterCSV",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('FilterCSV').output.Value",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "IfNotSatisfied",
+                            "type": "IfCondition",
+                            "dependsOn": [],
+                            "typeProperties": {
+                                "expression": {
+                                    "value": "@equals('product_category_name_translation.csv', item().name)",
+                                    "type": "Expression"
+                                },
+                                "ifFalseActivities": [],
+                                "ifTrueActivities": [
+                                    {
+                                        "name": "Delete data1",
+                                        "type": "Delete",
+                                        "dependsOn": [],
+                                        "policy": {
+                                            "timeout": "0.12:00:00",
+                                            "retry": 0,
+                                            "retryIntervalInSeconds": 30,
+                                            "secureOutput": false,
+                                            "secureInput": false
+                                        },
+                                        "typeProperties": {
+                                            "datasetSettings": {
+                                                "annotations": [],
+                                                "type": "Binary",
+                                                "typeProperties": {
+                                                    "location": {
+                                                        "type": "AzureBlobFSLocation",
+                                                        "fileName": "product_category_name_translation.csv",
+                                                        "folderPath": "rawfiles",
+                                                        "fileSystem": "sourcecsv"
+                                                    }
+                                                },
+                                                "externalReferences": {
+                                                    "connection": "c409d5de-97a5-4330-9f52-807f3f763b6d"
+                                                }
+                                            },
+                                            "enableLogging": false,
+                                            "storeSettings": {
+                                                "type": "AzureBlobFSReadSettings",
+                                                "recursive": true,
+                                                "enablePartitionDiscovery": false
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "SetNoOfFiles",
+                "type": "SetVariable",
+                "dependsOn": [
+                    {
+                        "activity": "FilterCSV",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "variableName": "v_files",
+                    "value": {
+                        "value": "@length(activity('FilterCSV').output.Value)",
+                        "type": "Expression"
+                    }
+                }
+            },
+            {
+                "name": "Failure Notification",
+                "type": "Office365Email",
+                "dependsOn": [
+                    {
+                        "activity": "ForEach1",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "to": "Imraan.Leeuw@dynamicdna.co.za",
+                    "subject": "metadataDriven Pipeline Failure",
+                    "body": "<p>Good day</p>\n<p><br></p>\n<p>Your pipeline failed</p>"
+                },
+                "externalReferences": {
+                    "connection": "b6dd0f09-18bc-4906-9054-e8349682d003"
+                }
+            },
+            {
+                "name": "Teams Alert",
+                "type": "MicrosoftTeams",
+                "dependsOn": [
+                    {
+                        "activity": "ForEach1",
+                        "dependencyConditions": [
+                            "Failed"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "typeProperties": {
+                    "operationType": "SendMessageInChannel",
+                    "content": "<p>Good day,</p>\n<p>the metaDataDriven pipeline failed to delete the unnecessary file</p>",
+                    "subject": "csv Delete File Failure",
+                    "teamId": "eecec0f4-991a-44cb-8d8b-425d497d609d",
+                    "channelId": "19:5a87b2d9e546494c9a48b95cde62e586@thread.tacv2"
+                },
+                "externalReferences": {
+                    "connection": "8761cf13-146e-4410-a776-857739d156ae"
+                }
+            }
+        ],
+        "variables": {
+            "v_files": {
+                "type": "Integer"
+            }
+        },
+        "lastModifiedByObjectId": "ae4319f4-779d-4604-a09a-5257477a610f",
+        "lastPublishTime": "2026-08-26T19:00:03Z"
+    }
+}
