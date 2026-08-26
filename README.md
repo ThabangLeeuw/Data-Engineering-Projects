@@ -55,8 +55,7 @@ This repository contains hands‑on projects that demonstrate my skills in **Pyt
 ---
 
 ## 📬 Contact
-- **LinkedIn:** [Your LinkedIn URL]  
-- **Email:** [Your email address]  
-- **Portfolio:** [Optional personal site or Simukai business link]  
+- **LinkedIn:** https://www.linkedin.com/in/imraan-thabang-leeuw-096aa51ba  
+- **Email:** imraanleeuw97@outlook.com and thabangleeuw97@gmail.com 
 
 ---
