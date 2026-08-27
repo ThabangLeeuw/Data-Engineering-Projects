@@ -1,4 +1,4 @@
-# 🛠️ Data Engineering Projects by Imraan Leeuw
+# 🛠️ Data Engineering Projects by Imraan Thabang Leeuw
 
 Welcome to my **data engineering portfolio**!  
 This repository contains hands‑on projects that demonstrate my skills in **Python (Soon), SQL (Soon), Microsoft Fabric, and Azure**. Each project is designed to highlight real‑world data engineering concepts — from ingestion pipelines to orchestration and analytics.
