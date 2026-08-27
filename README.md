@@ -20,21 +20,7 @@ This repository contains hands‑on projects that demonstrate my skills in **Pyt
 - **Highlights:** Automates ingestion of CSV files, applies conditional checks, and sends notifications on failure.  
 - **Deliverables:** JSON pipeline definitions + architecture diagram.
 
-### 2. Coffee Machine Logic (Python)
-- **Tech:** Python (loops, conditionals, functions)  
-- **Highlights:** Simulates a resource‑driven system with payments and inventory checks.  
-- **Deliverables:** Python script + README explanation.
-
-### 3. ETL Mini‑Pipeline
-- **Tech:** Python, PostgreSQL  
-- **Highlights:** Extracts data from a public API, transforms with Pandas, and loads into a database.  
-- **Deliverables:** ETL script + schema design.
-
-### 4. Azure Synapse + Power BI
-- **Tech:** Synapse Analytics, SQL, Power BI  
-- **Highlights:** Builds a star schema warehouse and connects dashboards for reporting.  
-- **Deliverables:** SQL scripts + dashboard screenshots.
-
+### Stay Tuned for more projects
 ---
 
 ## 📊 Skills Demonstrated
