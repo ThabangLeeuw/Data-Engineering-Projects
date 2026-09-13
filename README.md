@@ -1,49 +1,50 @@
 # Data Engineering Projects – Medallion Architecture
 
 ## Overview
-This repository demonstrates end-to-end data engineering pipelines using the **Medallion Architecture** (Bronze, Silver, Gold layers). It highlights how raw data is ingested, transformed, and curated into business-ready datasets using **Azure Fabric, Python, SQL, and KQL**.
+This repository showcases my journey in data engineering using the **Medallion Architecture** (Bronze, Silver, Gold layers). It demonstrates how raw data is ingested, enriched, and curated into structured outputs using **Azure Fabric, Python, SQL, and KQL**.  
 
-The project reflects my learning journey in data engineering, showcasing practical applications of industry-standard practices and my commitment to continuous upskilling.
+The repo includes datasets, code snippets, and architecture visuals to illustrate the complete pipeline lifecycle.
 
 ---
 
 ## Architecture
 
 - **Bronze Layer (Raw Data)**
-  - Stores raw, unprocessed files (CSV, JSON, Parquet).
-  - Purpose: Preserve data exactly as ingested for reproducibility.
+  - Contains raw datasets in the `raw_data` directory.
+  - Purpose: Preserve ingested data in its original form for reproducibility.
 
 - **Silver Layer (Enriched Data)**
-  - Applies cleaning, deduplication, type casting, and schema alignment.
-  - Purpose: Create standardized, analytics-ready datasets.
+  - Transformation scripts and enriched outputs.
+  - Purpose: Apply cleaning, deduplication, type casting, and schema alignment.
 
 - **Gold Layer (Curated Data)**
-  - Applies business logic, joins, and KPI calculations.
-  - Purpose: Deliver curated datasets for downstream consumption.
+  - Business-ready datasets with applied logic and KPIs.
+  - Purpose: Deliver curated outputs for downstream consumption.
 
 ---
 
 ## Tech Stack
-- **Languages:** Python, SQL
-- **Platform:** Microsoft Fabric (Lakehouse, Pipelines)
-- **Tools:** GitHub for version control
-- **Certifications:** 
-  - Microsoft DP-900 (Azure Data Fundamentals)
-  - Microsoft DP-700 (Fabric Data Engineer Associate – in progress)
+- **Languages:** Python, SQL, KQL  
+- **Platform:** Microsoft Fabric (Lakehouse, Eventhouse, Pipelines)  
+- **Tools:** GitHub for version control  
+- **Certifications:**  
+  - Microsoft DP-900 (Azure Data Fundamentals)  
+  - Microsoft DP-700 (Fabric Data Engineer Associate – in progress)  
 
 ---
 
 ## Repository Structure
-Medallion_Architecture/
-├── bronze/   # Raw files and ingestion scripts
-├── silver/   # Transformation scripts and enriched outputs
-├── gold/     # Curated datasets and business-ready outputs
-└── docs/     # Architecture diagrams, notes
-pipelines/      # Fabric pipeline definitions
-notebooks/      # PySpark notebooks
-sql/            # Warehouse scripts
-README.md       # Project overview
 
+Medallion_Architecture/
+├── bronze/        # Raw ingestion scripts
+├── silver/        # Transformation logic
+├── gold/          # Curated outputs
+raw_data/            # Sample raw datasets
+imgs/                # Lakehouse & DWH snippets, architecture visuals
+pipelines/           # Fabric pipeline definitions
+notebooks/           # PySpark/KQL notebooks
+dwh/                 # Warehouse scripts
+README.md            # Project overview
 
 ---
 
