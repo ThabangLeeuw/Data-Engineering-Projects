@@ -1,47 +1,70 @@
-# 🛠️ Data Engineering Projects by Imraan Thabang Leeuw
+# Data Engineering Projects – Medallion Architecture
 
-Welcome to my **data engineering portfolio**!  
-This repository contains hands‑on projects that demonstrate my skills in **Python, SQL, Microsoft Fabric, and Azure**. Each project is designed to highlight real‑world data engineering concepts — from ingestion pipelines to orchestration and analytics.
+## Overview
+This repository demonstrates end-to-end data engineering pipelines using the **Medallion Architecture** (Bronze, Silver, Gold layers). It highlights how raw data is ingested, transformed, and curated into business-ready datasets using **Azure Fabric, Python, SQL, and KQL**.
 
----
-
-## 📂 Project Structure
-- `fabric-pipelines/` → Metadata‑driven pipelines (JSON definitions, activity configs, diagrams)
-- `python-projects/` → ETL scripts, automation tools, and small logic exercises
-- `sql-scripts/` → Queries for data modeling, transformations, and warehouse design
-- `docs/` → Architecture notes, lessons learned, and project explanations
-- `images/` → Pipeline diagrams and screenshots
+The project reflects my learning journey in data engineering, showcasing practical applications of industry-standard practices and my commitment to continuous upskilling.
 
 ---
 
-## 🚀 Featured Projects
-### 1. Metadata‑Driven Pipeline
-- **Tech:** Microsoft Fabric, Copy Data, For Each, Teams Alerts  
-- **Highlights:** Automates ingestion of CSV files, applies conditional checks, and sends notifications on failure.  
-- **Deliverables:** JSON pipeline definitions + architecture diagram.
+## Architecture
 
-### Stay Tuned for more projects
----
+- **Bronze Layer (Raw Data)**
+  - Stores raw, unprocessed files (CSV, JSON, Parquet).
+  - Purpose: Preserve data exactly as ingested for reproducibility.
 
-## 📊 Skills Demonstrated
-- Data ingestion (Copy Data, Eventstream, shortcuts, schema drift)  
-- Pipeline orchestration (For Each, triggers, monitoring)  
-- Cloud integration (Azure Data Factory, Synapse, Fabric Lakehouse)  
-- Data modeling (SQL, Delta tables, warehouse design)  
-- Python scripting for ETL and automation  
+- **Silver Layer (Enriched Data)**
+  - Applies cleaning, deduplication, type casting, and schema alignment.
+  - Purpose: Create standardized, analytics-ready datasets.
+
+- **Gold Layer (Curated Data)**
+  - Applies business logic, joins, and KPI calculations.
+  - Purpose: Deliver curated datasets for downstream consumption.
 
 ---
 
-## 🧠 Lessons Learned
-- Metadata‑driven design improves scalability.  
-- Delta format optimizes query performance.  
-- Teams integration ensures quick response to pipeline failures.  
-- Hands‑on projects are the best way to master DP‑900 and DP‑700 concepts.  
+## Tech Stack
+- **Languages:** Python, SQL
+- **Platform:** Microsoft Fabric (Lakehouse, Pipelines)
+- **Tools:** GitHub for version control
+- **Certifications:** 
+  - Microsoft DP-900 (Azure Data Fundamentals)
+  - Microsoft DP-700 (Fabric Data Engineer Associate – in progress)
 
 ---
 
-## 📬 Contact
-- **LinkedIn:** https://www.linkedin.com/in/imraan-thabang-leeuw-096aa51ba  
-- **Email:** imraanleeuw97@outlook.com and thabangleeuw97@gmail.com 
+## Repository Structure
+Medallion_Architecture/
+├── bronze/   # Raw files and ingestion scripts
+├── silver/   # Transformation scripts and enriched outputs
+├── gold/     # Curated datasets and business-ready outputs
+└── docs/     # Architecture diagrams, notes
+pipelines/      # Fabric pipeline definitions
+notebooks/      # PySpark notebooks
+sql/            # Warehouse scripts
+README.md       # Project overview
+
 
 ---
+
+## How to Use
+1. Clone the repository.
+2. Explore the Bronze → Silver → Gold flow.
+3. Run notebooks/pipelines to reproduce transformations.
+4. Review curated outputs in the Gold layer.
+
+---
+
+## Future Work
+- Add small sample datasets to each layer (anonymized for sharing).
+- Document transformation rules applied in the Silver layer.
+- Include architecture diagrams in `/docs`.
+- Add unit tests for data validation.
+
+---
+
+## Author
+**Imraan Thabang Leeuw**  
+- Passionate about data engineering and continuous learning.  
+- Actively building skills in Python, SQL, KQL, and Azure Fabric.  
+- Certified in DP-900, preparing for DP-700.  
